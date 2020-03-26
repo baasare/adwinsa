@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>{{ user }}</p>
+<p> Patients </p>
+<ul>
+    {% for patient in user.patients.all %}
+        <li>{{ patient }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

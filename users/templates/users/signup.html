@@ -1,0 +1,124 @@
+{% extends 'users/auth_base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+
+
+
+{% block content %}
+
+    <header id="authentication" class="" style="background: #f5f8fd;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <header class="section-header">
+                        <a href="{% url 'index' %}"><h3>Adwinsa</h3></a>
+                    </header>
+                    {% include "snippets/messages.html" %}
+                    <br>
+                    <div class="box">
+                        <div class="icon" style="background: #fceef3;"><i class="ion-ios-locked-outline"
+                                                                          style="color: #ff689b;"></i></div>
+                        <h4 class="title"><a href="">Register</a></h4>
+                        <form class="form-signin" action="{% url 'register' %}" method="POST">
+                            {% csrf_token %}
+
+                            <div class="form-label-group">
+                                <input type="text" id="id_username" class="form-control"
+                                       placeholder="User Name"
+                                       name="username"
+                                       {% if form.username.value != None %}value="{{ form.username.value|stringformat:'s' }}"{% endif %}
+                                       required autofocus><br>
+                                <div class="text-danger">
+                                    <small> {{ form.first_name.errors }}</small>
+                                </div>
+                            </div>
+
+
+                            <div class="form-label-group">
+                                <input type="text" id="id_first_name" class="form-control"
+                                       placeholder="First Name"
+                                       name="first_name"
+                                       {% if form.first_name.value != None %}value="{{ form.first_name.value|stringformat:'s' }}"{% endif %}
+                                       required autofocus><br>
+                                <div class="text-danger">
+                                    <small> {{ form.first_name.errors }}</small>
+                                </div>
+                            </div>
+
+                            <div class="form-label-group">
+                                <input type="text" id="id_last_name" class="form-control"
+                                       placeholder="Last Name"
+                                       name="last_name"
+                                       {% if form.last_name.value != None %}value="{{ form.last_name.value|stringformat:'s' }}"{% endif %}
+                                       required autofocus><br>
+                                <div class="text-danger">
+                                    <small>{{ form.last_name.errors }}</small>
+                                </div>
+                            </div>
+
+                            <div class="form-label-group">
+                                <input type="email" id="id_email" class="form-control" placeholder="Email address"
+                                       name="email"
+                                       {% if form.email.value != None %}value="{{ form.email.value|stringformat:'s' }}"{% endif %}
+                                       required><br>
+                                <div class="text-danger">
+                                    <small>{{ form.email.errors }}</small>
+                                </div>
+                            </div>
+
+                            <div class="form-label-group">
+                                <input type="text" id="id_phone_number" class="form-control"
+                                       placeholder="Phone Number"
+                                       name="phone_number"
+                                       {% if form.phone_number.value != None %}value="{{ form.phone_number.value|stringformat:'s' }}"{% endif %}
+                                       required autofocus><br>
+                                <div class="text-danger">
+                                    <small>{{ form.phone_number.errors }}</small>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="form-label-group">
+                                <input type="password" id="id_password1" class="form-control" placeholder="Password"
+                                       name="password1" onfocus="focusFunction()" onblur="blurFunction()" required><br>
+                                <small id="passwordHelp" class="form-text text-muted">Your password should contain
+                                    at least 8 characters and shouldn't be entirely numeric or characters.</small>
+                                <div class="text-danger">
+                                    <small>{{ form.password1.errors }}</small>
+                                </div>
+                            </div>
+
+                            <div class="form-label-group">
+                                <input type="password" id="id_password2" class="form-control"
+                                       placeholder="Confirm Password"
+                                       name="password2" required><br>
+                                <div class="text-danger">
+                                    <small>{{ form.password2.errors }}</small>
+                                </div>
+
+
+                            </div>
+
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register
+                            </button>
+
+                            <div class="d-block text-center mt-3 small">
+                                If you already have an account <a class="" href="{% url 'login' %}">Login</a>
+                                instead.
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+{% endblock %}
