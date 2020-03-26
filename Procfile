@@ -1,1 +1,1 @@
-web: gunicorn adwinsa.wsgi
+web: gunicorn adwinsa.wsgi --log-file -
