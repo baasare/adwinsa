@@ -156,7 +156,7 @@ if os.getcwd() == '/app':
     import dj_database_url
     from decouple import config, Csv
 
-    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
     DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
