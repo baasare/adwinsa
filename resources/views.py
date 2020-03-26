@@ -1,9 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from .models import Resource
 
 
-# @login_required
+@login_required
 def level_detail(request, level):
     resources = Resource.objects.filter(level=level)
     if resources:
