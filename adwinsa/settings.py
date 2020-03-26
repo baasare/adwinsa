@@ -142,7 +142,7 @@ EMAIL_PORT = 587
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR, ]
 STATIC_ROOT = STATICFILES_DIR
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Media files (Images, Files)
 MEDIA_URL = '/media/'
@@ -156,7 +156,7 @@ if os.getcwd() == '/app':
     import dj_database_url
     from decouple import config, Csv
 
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
     DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
