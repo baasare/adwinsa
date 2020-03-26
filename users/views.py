@@ -94,7 +94,6 @@ def register(request):
 def user_login(request):
     if request.method == 'POST':
         next_page = request.POST.get('next')
-        print(next_page)
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
