@@ -147,6 +147,7 @@ MEDIA_ROOT = MEDIA_DIR
 
 # Authentication Model definition
 AUTH_USER_MODEL = 'users.CustomUser'
+LOGIN_URL = '/login'
 
 # Heroku setup
 if os.getcwd() == '/app':

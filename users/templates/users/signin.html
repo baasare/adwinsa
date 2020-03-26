@@ -27,40 +27,42 @@
                         <div class="text-danger">
                             <small> {{ error }}</small>
                         </div>
-                        <form class="form-signin" name="form" action="{% url 'login' %}" method="POST">
-                            {% csrf_token %}
-                            <div class="form-label-group">
-                                <input type="text" id="id_username" class="form-control" placeholder="Email"
-                                       name="username"
-                                       {% if form.username.value != None %}value="{{ form.username.value|stringformat:'s' }}"{% endif %}
-                                       required autofocus><br>
-                                <div class="text-danger">
-                                    <small> {{ form.username.errors }}</small>
-                                </div>
-                            </div>
-
-                            <div class="form-label-group">
-                                <input type="password" id="id_password" class="form-control"
-                                       placeholder="Password"
-                                       name="password"
-                                       {% if form.password.value != None %}value="{{ form.password.value|stringformat:'s' }}"{% endif %}
-                                       required><br>
-                                <div class="text-danger">
-                                    <small> {{ form.password.errors }}</small>
-                                </div>
-                            </div>
+                            <form class="form-signin" name="form" action="{% url 'login' %}" method="POST">
 
 
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">LOGIN
-                            </button>
+                        {% csrf_token %}
+                        <div class="form-label-group">
+                            <input type="text" id="id_username" class="form-control" placeholder="Email"
+                                   name="username"
+                                   {% if form.username.value != None %}value="{{ form.username.value|stringformat:'s' }}"{% endif %}
+                                   required autofocus><br>
+                            <div class="text-danger">
+                                <small> {{ form.username.errors }}</small>
+                            </div>
+                        </div>
 
-                            <div class="d-block text-center mt-4 small">
-                                <a class="" href="{% url 'password_reset' %}">Forgot Password?</a>
+                        <div class="form-label-group">
+                            <input type="password" id="id_password" class="form-control"
+                                   placeholder="Password"
+                                   name="password"
+                                   {% if form.password.value != None %}value="{{ form.password.value|stringformat:'s' }}"{% endif %}
+                                   required><br>
+                            <div class="text-danger">
+                                <small> {{ form.password.errors }}</small>
                             </div>
-                            <div class="d-block text-center mt-3 small">
-                                If you don't have an account <a class="" href="{% url 'register' %}">Sign Up</a>
-                                instead.
-                            </div>
+                        </div>
+
+                        <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">LOGIN
+                        </button>
+
+                        <div class="d-block text-center mt-4 small">
+                            <a class="" href="{% url 'password_reset' %}">Forgot Password?</a>
+                        </div>
+                        <div class="d-block text-center mt-3 small">
+                            If you don't have an account <a class="" href="{% url 'register' %}">Sign Up</a>
+                            instead.
+                        </div>
                         </form>
 
                     </div>

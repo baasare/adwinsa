@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string, get_template
 from django.utils.encoding import force_bytes
@@ -93,6 +93,8 @@ def register(request):
 
 def user_login(request):
     if request.method == 'POST':
+        next_page = request.POST.get('next')
+        print(next_page)
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -103,7 +105,10 @@ def user_login(request):
                 #     request.session.set_expiry(1209600)  # 2 weeks
                 login(request, user)
                 messages.success(request, "You have successfully logged in")
-                return redirect('index')
+                if next_page:
+                    return HttpResponseRedirect(next_page)
+                else:
+                    return redirect('index')
             else:
                 messages.error(request, "Invalid username or password.")
         else:
