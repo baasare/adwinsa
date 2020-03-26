@@ -1,1 +1,1 @@
-web: gunicorn bosea.wsgi
+web: gunicorn adwinsa.wsgi
