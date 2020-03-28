@@ -36,10 +36,10 @@
                         <caption>List of resources</caption>
                         <thead>
                         <tr>
-                            <th scope="col">Title</th>
-{#                            <th scope="col">Description</th>#}
+                            <th scope="col">Indicator</th>
                             <th scope="col">Strand</th>
                             <th scope="col">Sub Strand</th>
+{#                            <th scope="col">Indicator</th>#}
                             <th scope="col">Link</th>
                         </tr>
                         </thead>
@@ -49,9 +49,9 @@
                             {% for item in resources %}
                                 <tr>
                                     <td>{{ item.title|truncatewords:10 }}</td>
-{#                                    <td>{{ item.description|truncatewords:10 }}</td>#}
                                     <td>{{ item.strand }}</td>
                                     <td>{{ item.sub_strand }}</td>
+{#                                    <td>{{ item.description|truncatewords:10 }}</td>#}
                                     <td><a href="{{ item.url }}" target="_blank">Download</a></td>
                                 </tr>
                             {% endfor %}
