@@ -3,14 +3,15 @@ from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import BadHeaderError
 from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template.loader import render_to_string, get_template
+from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ContactForm
 from .tokens import token_generator
 
 
@@ -46,7 +47,26 @@ def activate_account(request, uidb64, token):
 
 
 def index(request):
-    return render(request=request, template_name="users/index.html", )
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            from_email = form.cleaned_data.get('from_email')
+            subject = form.cleaned_data.get('subject')
+            message = form.cleaned_data.get('message')
+            try:
+                email = EmailMessage(subject=subject, body=message, to=["interactivelearning2020@gmail.com"],
+                                     from_email=from_email, )
+                email.send()
+                messages.success(request, "Success! Thank you for your message")
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+        else:
+            args = {'form': form}
+            return render(request, 'users/index.html', args)
+
+    return render(request, "users/index.html", {'form': form})
 
 
 @login_required
