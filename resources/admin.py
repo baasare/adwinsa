@@ -5,7 +5,7 @@ from .models import Resource
 
 @admin.register(Resource)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'level', 'strand', 'sub_strand', 'url',)
+    list_display = ('title', 'level', 'strand', 'sub_strand', 'url',)
     list_filter = ('user', 'title', 'level', 'strand', 'sub_strand',)
     search_fields = ('title', 'level', 'strand')
     ordering = ('level', 'strand', 'sub_strand',)
