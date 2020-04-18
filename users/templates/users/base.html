@@ -61,11 +61,11 @@ Header
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'logout' %}">Sign Out</a></li>
                 {% else %}
-                    {% if request.path == '/signin' %}
+                    {% if request.path == '/signin/' %}
                         <li><a href="{% url 'register' %}">Registration</a></li>
-                    {% elif request.path == '/signup' %}
+                    {% elif request.path == '/signup/' %}
                         <li><a href="{% url 'login' %}">Sign In</a></li>
-                    {% elif request.path != '/signup' or request.path != '/signup' %}
+                    {% elif request.path != '/signup/' or request.path != '/signin/' %}
                         <li><a href="{% url 'login' %}">Sign In</a></li>
                         <li><a href="{% url 'register' %}">Registration</a></li>
                     {% endif %}

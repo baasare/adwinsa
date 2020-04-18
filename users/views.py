@@ -88,19 +88,10 @@ def register(request):
         form = CustomUserCreationForm(data=request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
-            user.email_verified = False
+            user.is_active = True
+            user.email_verified = True
             user.save()
-
-            current_site = get_current_site(request)
-            path = 'activate'
-            email_subject = 'Activate Your Account'
-            template_name = 'users/activate_account.html'
-            to_email = form.cleaned_data.get('email')
-            from_email = "Adwinsa <noreply@adwinsa.com>"
-            token_email(user, current_site, path, email_subject, template_name, to_email, from_email)
-
-            return HttpResponse('We have sent you an email, please confirm your email address to complete registration')
+            return redirect('index')
         else:
             args = {'form': form}
             return render(request, 'users/signup.html', args)
@@ -120,8 +111,6 @@ def user_login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
-                # if form.cleaned_data.get('remember_me'):
-                #     request.session.set_expiry(1209600)  # 2 weeks
                 login(request, user)
                 messages.success(request, "You have successfully logged in")
                 if next_page:
