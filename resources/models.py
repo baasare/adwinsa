@@ -36,7 +36,7 @@ class Resource(models.Model):
     url = models.URLField()
 
     class Meta:
-        ordering = ('-level', 'strand', 'sub_strand', 'title',)
+        ordering = ('-level', 'strand', 'sub_strand', '-title',)
 
     def __str__(self):
         return "%s" % self.title
