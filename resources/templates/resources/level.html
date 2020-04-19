@@ -78,8 +78,7 @@
                             {% endif %}
                             {% for i in resources.paginator.page_range %}
                                 {% if resources.number == i %}
-                                    <li class="page-item active"><span>{{ i }} <span
-                                            class="sr-only">(current)</span></span></li>
+                                    <li class="page-item active">{{ i }}</li>
                                 {% else %}
                                     <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                                 {% endif %}
