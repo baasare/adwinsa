@@ -63,27 +63,39 @@
                     </table>
                 </div>
 
-                {% if resources.has_other_pages %}
-                    <ul class="pagination">
-                        {% if resources.has_previous %}
-                            <li><a href="?page={{ resources.previous_page_number }}">&laquo;</a></li>
-                        {% else %}
-                            <li class="disabled"><span>&laquo;</span></li>
-                        {% endif %}
-                        {% for i in resources.paginator.page_range %}
-                            {% if resources.number == i %}
-                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+
+                <nav aria-label="Page navigation example">
+                    {% if resources.has_other_pages %}
+                        <ul class="pagination justify-content-center">
+                            {% if resources.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ resources.previous_page_number }}">
+                                        &laquo;
+                                    </a>
+                                </li>
                             {% else %}
-                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                <li class="page-item disabled"><span>&laquo;</span></li>
                             {% endif %}
-                        {% endfor %}
-                        {% if resources.has_next %}
-                            <li><a href="?page={{ resources.next_page_number }}">&raquo;</a></li>
-                        {% else %}
-                            <li class="disabled"><span>&raquo;</span></li>
-                        {% endif %}
-                    </ul>
-                {% endif %}
+                            {% for i in resources.paginator.page_range %}
+                                {% if resources.number == i %}
+                                    <li class="page-item active"><span>{{ i }} <span
+                                            class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if resources.has_next %}
+                                <li class="page-item"><a class="page-link"href="?page={{ resources.next_page_number }}">
+                                    &raquo;</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                </nav>
+
+
             </div>
         </section><!-- #services -->
         <br>
