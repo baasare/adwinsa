@@ -69,7 +69,7 @@
                         <ul class="pagination justify-content-center">
                             {% if resources.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?page={{ resources.previous_page_number }}">
+                                    <a class="page-item" href="?page={{ resources.previous_page_number }}">
                                         &laquo;
                                     </a>
                                 </li>
@@ -79,14 +79,14 @@
                             {% for i in resources.paginator.page_range %}
                                 {% if resources.number == i %}
                                     <li class="page-item disabled">
-                                        <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                                        <a class="page-item" href="#">{{ i }}<span class="sr-only">(current)</span></a>
                                     </li>
                                 {% else %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                    <li class="page-item"><a class="page-item" href="?page={{ i }}">{{ i }}</a></li>
                                 {% endif %}
                             {% endfor %}
                             {% if resources.has_next %}
-                                <li class="page-item"><a class="page-link"
+                                <li class="page-item"><a class="page-item"
                                                          href="?page={{ resources.next_page_number }}">
                                     &raquo;</a>
                                 </li>
