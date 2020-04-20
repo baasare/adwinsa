@@ -13,7 +13,6 @@ urlpatterns = [
 
     # Signup
     path('register/', views.register, name='register'),
-    path('register/activate/<slug:uidb64>/<slug:token>/', views.activate_account, name='activate'),
 
     # Authentication
     path('login/', views.user_login, name='login'),
