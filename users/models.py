@@ -7,6 +7,17 @@ from django.utils.translation import gettext_lazy as _
 from .managers import CustomUserManager
 
 
+class Queries(models.Model):
+    query_email = models.CharField(_('query from'), max_length=30, blank=False)
+    subject = models.CharField(_('subject'), max_length=40, blank=False)
+    message = models.TextField(_('message'), blank=False)
+
+    class Meta:
+        ordering = ['-query_email']
+        verbose_name = _('Query')
+        verbose_name_plural = _('Queries')
+
+
 class CustomUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=30)

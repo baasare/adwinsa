@@ -2,71 +2,29 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import BadHeaderError
-from django.core.mail import EmailMessage
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-from .forms import CustomUserCreationForm, ContactForm
-from .tokens import token_generator
+from .forms import CustomUserCreationForm, QueryForm
 
 
 # Create your views here.
 
-def token_email(user, current_site, path, email_subject, template_name, to_email, from_email):
-    message = render_to_string(template_name=template_name, context={
-        'user': user,
-        'domain': current_site.domain,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
-        'token': token_generator.make_token(user),
-        'path': path
-    }).strip()
-    email = EmailMessage(subject=email_subject, body=message, to=[to_email], from_email=from_email, )
-    email.send()
-
-
-def activate_account(request, uidb64, token):
-    User = get_user_model()
-    try:
-        uid = force_bytes(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-    if user is not None and token_generator.check_token(user, token):
-        user.is_active = True
-        user.email_verified = True
-        user.save()
-        login(request, user)
-        return HttpResponse('Your account has been activate successfully, login via the app or website')
-    else:
-        return HttpResponse('Activation link is invalid!')
-
-
 def index(request):
     if request.method == 'GET':
-        form = ContactForm()
+        form = QueryForm()
     else:
-        form = ContactForm(request.POST)
+        form = QueryForm(request.POST)
         if form.is_valid():
-            from_email = form.cleaned_data.get('from_email')
-            subject = form.cleaned_data.get('subject')
-            message = form.cleaned_data.get('message')
-            try:
-                email = EmailMessage(subject=subject, body=message, to=["interactivelearning2020@gmail.com"],
-                                     from_email=from_email, )
-                email.send()
-                messages.success(request, "Success! Thank you for your message")
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
+            query = form.save(commit=False)
+            query.save()
         else:
             args = {'form': form}
             return render(request, 'users/index.html', args)
 
-    return render(request, "users/index.html", {'form': form})
+    args = {'form': form}
+
+    return render(request, "users/index.html", args)
 
 
 @login_required

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from .models import CustomUser
+from .models import CustomUser, Queries
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -16,7 +16,7 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ('first_name', 'last_name', 'email', 'username', 'phone_number',)
 
 
-class ContactForm(forms.Form):
-    from_email = forms.EmailField(required=True)
-    subject = forms.CharField(required=True)
-    message = forms.CharField(widget=forms.Textarea, required=True)
+class QueryForm(forms.ModelForm):
+    class Meta:
+        model = Queries
+        fields = ("query_email", "subject", "message")
